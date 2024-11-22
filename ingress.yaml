@@ -1,0 +1,35 @@
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: dev
+  name: b8-ingress
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+spec:
+  ingressClassName: alb
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: first-svc
+            port:
+              number: 80
+      - path: /airtag
+        pathType: Prefix
+        backend:
+          service:
+            name: second-svc
+            port:
+              number: 80
+      - path: /onlinebookstore
+        pathType: Prefix
+        backend:
+          service:
+            name: third-svc
+            port:
+              number: 80
